@@ -6,16 +6,16 @@ export async function GET(request: NextApiRequest) {
   const { id } = request.query
 
   try {
-    const response = await (await fetch(`${ENDPOINT}/episode/${id}`)).json()
+    const response = await (await fetch(`${ENDPOINT}/character/${id}`)).json()
 
     return NextResponse.json(
-      response,
+      response.results,
       {
         status: 200,
       },
     )
   } catch(err) {
-    console.error(`There was a problem fetching episode ${id}:`, err)
+    console.error(`There was a problem fetching character ${id}:`, err)
 
     return NextResponse.error()
   }
