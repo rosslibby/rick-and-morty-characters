@@ -10,10 +10,13 @@ export const useNavigation = () => {
       selectEpisode,
     }
   } = useContext(navigationCtx)
+
   const toggleSelect = (id?: number) => {
     if (typeof id !== undefined) {
       const episode = episodes.find((episode: Episode) => episode.id === id)
-      // selectEpisode()
+      selectEpisode(episode)
+    } else {
+      selectEpisode(null)
     }
   }
 }
