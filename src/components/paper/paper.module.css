@@ -1,0 +1,9 @@
+.paper {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 7px 2px #f0f2f6;
+  box-sizing: border-box;
+  color: black;
+  display: grid;
+  padding: 1.25rem;
+}
