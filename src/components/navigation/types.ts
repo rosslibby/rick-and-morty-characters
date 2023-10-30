@@ -7,8 +7,10 @@ export interface SelectedEpisode {
 }
 
 export interface Navigation {
+  characters: Character[]
   episodes: Episode[]
   episode: SelectedEpisode | null
+  loading: boolean
   _: {
     [key: string]: Function
   }
