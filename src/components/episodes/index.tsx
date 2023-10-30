@@ -1,21 +1,30 @@
 import Paper from 'components/paper'
 import styles from './episodes.module.css'
+import { MouseEvent, useContext } from 'react'
+import { navigationCtx } from 'components/navigation'
+import { Episode } from './types'
 
 export default function Episodes() {
+  const { episode, episodes, _: { selectEpisode } } = useContext(navigationCtx)
+  const handleEpisodeClick = (e: MouseEvent<HTMLLIElement>) => {
+
+  }
+
+  // I am displaying the list as an ordered list (ol)
+  // so that the list items (li) can have "value" attributes
+
   return (
     <Paper className={styles.sidebar}>
       <nav>
         <h2>Episodes</h2>
-        <ul>
-          <li>Episode 1</li>
-          <li>Episode 2</li>
-          <li>Episode 3</li>
-          <li>Episode 4</li>
-          <li>Episode 5</li>
-          <li>Episode 6</li>
-          <li>Episode 7</li>
-          <li>Episode 8</li>
-        </ul>
+        <ol>
+          {episodes.map((episode: Episode) => (
+            <li
+              key={`episode-${episode.id}`}
+              value={episode.id}
+            >{episode.name}</li>
+          ))}
+        </ol>
       </nav>
     </Paper>
   )
