@@ -1,12 +1,6 @@
 'use client'
 
-import {
-  ReactNode,
-  createContext,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react'
+import { ReactNode, createContext, useState } from 'react'
 import { Store } from './types'
 import { Episode } from 'components/episodes/types'
 import { Character } from 'components/characters/types'
@@ -16,6 +10,8 @@ export const storeCtx = createContext<Store>({
   episodes: [],
   episode: null,
   loading: false,
+  charactersPage: 0,
+  episodesPage: 0,
   _: {},
 })
 
@@ -23,32 +19,11 @@ export default function Api({ children }: {
   children: ReactNode
 }) {
   const [loading, setLoading] = useState<boolean>(false)
+  const [episodesPage, setEpisodesPage] = useState<number>(0)
+  const [charactersPage, setCharactersPage] = useState<number>(0)
   const [episodes, setEpisodes] = useState<Episode[]>([])
   const [characters, setCharacters] = useState<Character[]>([])
   const [episode, setEpisode] = useState<Episode | null>(null)
-
-  // load initial data (characters and episodes)
-  const init = useCallback(async () => {
-    setLoading(true)
-
-    if (!characters.length) {
-      const result = await (await fetch('/api/characters')).json()
-      setCharacters(result)
-    }
-
-    if (!episodes.length) {
-      const result = await (await fetch('/api/episodes')).json()
-      setEpisodes(result)
-    }
-
-    setLoading(false)
-  }, [characters, episodes])
-
-  useEffect(() => {
-    if ((!characters.length || !episodes.length) && !loading) {
-      init()
-    }
-  }, [characters, episodes, init, loading])
 
   return (
     <storeCtx.Provider value={{
@@ -56,9 +31,15 @@ export default function Api({ children }: {
       episodes,
       episode,
       loading,
+      charactersPage,
+      episodesPage,
       _: {
         selectEpisode: setEpisode,
+        setCharacters,
+        setEpisodes,
         setLoading,
+        setCharactersPage,
+        setEpisodesPage,
       }
     }}>
       {children}
