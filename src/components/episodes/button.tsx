@@ -1,10 +1,10 @@
-import { MouseEvent, RefCallback, RefObject, useContext } from 'react'
+import { LegacyRef, MouseEvent, RefCallback, RefObject, useContext } from 'react'
 import styles from './episodes.module.css'
 import { storeCtx } from 'app/api'
 import { useNavigation } from 'app/api/hooks/navigation'
 
 export default function Button({ cbRef, id, name }: {
-  cbRef: RefObject<HTMLLIElement>
+  cbRef: LegacyRef<HTMLLIElement>
   id: number
   name: string
 }) {

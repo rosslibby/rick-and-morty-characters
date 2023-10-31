@@ -42,19 +42,6 @@ export default function Episodes() {
     }
   }, [setEpisodesPage, setObserver])
 
-  // const _observer = useRef(
-  //   typeof window !== undefined ? (new window.IntersectionObserver(
-  //     (entries) => {
-  //       const first = entries[0]
-
-  //       if (first.isIntersecting) {
-  //         console.log('updating page to', episodesPage + 1)
-  //         setEpisodesPage((page: number) => page + 1)
-  //       }
-  //     }
-  //   )) : null
-  // )
-
   const getNextEpisodes = useCallback(() => {
     console.log(episodesPage, TOTAL_PAGES)
     if (episodesPage < TOTAL_PAGES && loadNext) {
@@ -93,20 +80,12 @@ export default function Episodes() {
         <h2>Episodes</h2>
         <ol className={styles.episodes} ref={containerRef}>
           {episodes.map((episode: Episode) => (
-            // <Button
-            //   key={`episode-${episode.id}`}
-            //   id={episode.id}
-            //   name={episode.name}
-            //   cbRef={setLastElement as unknown as RefObject<HTMLLIElement>}
-            // />
-            <li
+            <Button
               key={`episode-${episode.id}`}
-              className={styles.episode}
-              // onClick={handleEpisodeClick}
-              ref={ref => setLastElement(ref)}
-              tabIndex={0}
-              value={episode.id}
-            >{episode.name}</li>
+              id={episode.id}
+              name={episode.name}
+              cbRef={(ref: HTMLLIElement) => setLastElement(ref)}
+            />
           ))}
           <li className={styles.boundary} ref={boundaryRef} />
         </ol>
