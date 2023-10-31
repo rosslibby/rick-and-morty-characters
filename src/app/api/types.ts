@@ -3,10 +3,12 @@ import { Episode } from 'components/episodes/types'
 
 export interface Store {
   characters: Character[]
-  episodesCount: number
+  charactersCount: number
+  charactersLoading: boolean
   episodes: Episode[]
+  episodesCount: number
   episode: Episode | null
-  loading: boolean
+  episodesLoading: boolean
   charactersPage: number
   episodesPage: number
   _: {

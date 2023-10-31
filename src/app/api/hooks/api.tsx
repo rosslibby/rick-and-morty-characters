@@ -1,24 +1,28 @@
-import { useCallback, useContext } from 'react'
+import { useCallback, useContext, useState } from 'react'
 import { storeCtx } from '..'
 import { Episode } from 'components/episodes/types'
 import { Character } from 'components/characters/types'
 
 export const useApi = () => {
+  const [currentEpisode, setCurrentEpisode] = useState<number>(0)
   const {
     characters,
     charactersPage,
+    episode,
     episodesPage,
     _: {
       setCharacters,
+      setCharactersCount,
+      setCharactersLoading,
       setEpisodes,
       setEpisodesCount,
-      setLoading,
+      setEpisodesLoading,
       setCharactersPage,
       setEpisodesPage,
     }} = useContext(storeCtx)
 
   const loadEpisodes = useCallback(async () => {
-    setLoading(true)
+    setEpisodesLoading(true)
 
     const { count, episodes: result } = await (
       await fetch(`/api/episodes/?page=${episodesPage + 1}`)
@@ -29,28 +33,28 @@ export const useApi = () => {
 
     setEpisodesPage((page: number) => page + 1)
 
-    setLoading(false)
+    setEpisodesLoading(false)
   }, [
     episodesPage,
     setEpisodes,
     setEpisodesCount,
     setEpisodesPage,
-    setLoading,
+    setEpisodesLoading,
   ])
 
   const resetCharacters = useCallback(async () => {
-    setLoading(true)
+    setCharactersLoading(true)
 
     const result = await (
       await fetch('/api/characters')
     ).json()
 
     setCharacters(result)
-    setLoading(false)
-  }, [setCharacters, setLoading])
+    setCharactersLoading(false)
+  }, [setCharacters, setCharactersLoading])
 
-  const loadCharacters = useCallback(async (characterIDs: number[] = [], page?: number) => {
-    setLoading(true)
+  const loadCharacters = useCallback(async (characterIDs: number[] = []) => {
+    setCharactersLoading(true)
 
     // Get IDs of characters that are already loaded
     const existingCharacters = characters.map(
@@ -77,10 +81,12 @@ export const useApi = () => {
       (characterId: number) => !existingCharacters.includes(characterId)
     )
 
-    const queryPage = page || charactersPage + 1
     const endpoint = newCharacters.length
       ? `/api/characters/${newCharacters?.join(',')}`
       : `/api/characters`
+    const queryPage = episode?.id === currentEpisode
+      ? charactersPage + 1
+      : 1
     const { characters: result } = await (
       await fetch(`${endpoint}/?page=${queryPage}`)
     ).json()
@@ -93,19 +99,27 @@ export const useApi = () => {
         ...result,
       ]
     )
-    setCharactersPage(page)
-    setLoading(false)
+    setCharactersCount(newCharacters.length)
+    setCharactersPage(queryPage + 1)
+    if (episode && currentEpisode !== episode.id) {
+      setCurrentEpisode(episode.id)
+    }
+    setCharactersLoading(false)
   }, [
     characters,
     charactersPage,
+    currentEpisode,
+    episode,
     setCharacters,
+    setCharactersCount,
     setCharactersPage,
-    setLoading,
+    setCharactersLoading,
   ])
 
   return {
     loadCharacters,
     loadEpisodes,
     resetCharacters,
+    setCurrentEpisode,
   }
 }

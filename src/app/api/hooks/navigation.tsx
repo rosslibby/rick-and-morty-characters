@@ -20,7 +20,7 @@ export const useNavigation = () => {
       const episode = episodes.find((episode: Episode) => episode.id === id)
       selectEpisode(episode)
       const characterIDs = episode?.characters.map((character: string) => getCharacterId(character))
-      loadCharacters(characterIDs, 1)
+      loadCharacters(characterIDs)
       setCharactersPage(0)
     } else {
       selectEpisode(null)

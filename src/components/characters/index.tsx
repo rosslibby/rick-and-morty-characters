@@ -4,13 +4,14 @@ import { useContext } from 'react'
 import { Character } from './types'
 import styles from './characters.module.css'
 import { storeCtx } from 'app/api'
+import Loading from 'components/loading'
 
 export default function Characters() {
-  const { characters } = useContext(storeCtx)
+  const { characters, charactersLoading } = useContext(storeCtx)
 
   return (
     <Paper className={styles.characters}>
-      {characters.map((character: Character) => (
+      {!charactersLoading && characters.map((character: Character) => (
         <Image
           key={`character-${character.id}`}
           className={styles.avatar}
@@ -20,6 +21,9 @@ export default function Characters() {
           width={160}
         />
       ))}
+      {charactersLoading && (
+        <Loading />
+      )}
     </Paper>
   )
 }

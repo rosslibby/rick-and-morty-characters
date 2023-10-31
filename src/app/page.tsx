@@ -10,22 +10,30 @@ import { useApi } from './api/hooks/api'
 export default function Home() {
   const {
     characters,
+    charactersLoading,
     episodes,
-    loading,
+    episodesLoading,
   } = useContext(storeCtx)
   const { loadCharacters, loadEpisodes } = useApi()
   const init = useCallback(() => {
-    if (!characters.length && !episodes.length && !loading) {
+    if (!characters.length && !episodes.length && !charactersLoading && !episodesLoading) {
       loadCharacters()
       loadEpisodes()
     }
-  }, [characters, episodes, loading, loadCharacters, loadEpisodes])
+  }, [
+    characters,
+    charactersLoading,
+    episodes,
+    episodesLoading,
+    loadCharacters,
+    loadEpisodes,
+  ])
 
   useEffect(() => {
-    if (!characters.length && !episodes.length && !loading) {
+    if (!characters.length && !episodes.length && !charactersLoading && !episodesLoading) {
       init()
     }
-  }, [characters, episodes, init, loading])
+  }, [characters, episodes, init, charactersLoading, episodesLoading])
 
   return (
     <main className={styles.main}>
