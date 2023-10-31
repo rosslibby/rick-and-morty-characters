@@ -1,6 +1,6 @@
-import { useContext } from 'react'
-import { navigationCtx } from '.'
+import { useCallback, useContext } from 'react'
 import { Episode } from 'components/episodes/types'
+import { storeCtx } from 'app/api'
 
 export const useNavigation = () => {
   const {
@@ -8,8 +8,9 @@ export const useNavigation = () => {
     episodes,
     _: {
       selectEpisode,
+      setLoading,
     }
-  } = useContext(navigationCtx)
+  } = useContext(storeCtx)
 
   const toggleSelect = (id?: number) => {
     if (typeof id !== undefined) {
@@ -19,4 +20,12 @@ export const useNavigation = () => {
       selectEpisode(null)
     }
   }
+
+  const loadEpisode = useCallback(async (id: number) => {
+    setLoading(true)
+
+    const episode = await (await fetch(`/api/episodes/${id}`)).json()
+
+    setLoading(false)
+  }, [setLoading])
 }

@@ -7,11 +7,11 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { Navigation } from './types'
+import { Store } from './types'
 import { Episode } from 'components/episodes/types'
 import { Character } from 'components/characters/types'
 
-export const navigationCtx = createContext<Navigation>({
+export const storeCtx = createContext<Store>({
   characters: [],
   episodes: [],
   episode: null,
@@ -19,7 +19,7 @@ export const navigationCtx = createContext<Navigation>({
   _: {},
 })
 
-export default function Navigation({ children }: {
+export default function Api({ children }: {
   children: ReactNode
 }) {
   const [loading, setLoading] = useState<boolean>(false)
@@ -51,7 +51,7 @@ export default function Navigation({ children }: {
   }, [characters, episodes, init, loading])
 
   return (
-    <navigationCtx.Provider value={{
+    <storeCtx.Provider value={{
       characters,
       episodes,
       episode,
@@ -62,6 +62,6 @@ export default function Navigation({ children }: {
       }
     }}>
       {children}
-    </navigationCtx.Provider>
+    </storeCtx.Provider>
   )
 }

@@ -1,12 +1,12 @@
-import { navigationCtx } from 'components/navigation'
 import Paper from 'components/paper'
 import Image from 'next/image'
 import { useContext, useState } from 'react'
 import { Character } from './types'
 import styles from './characters.module.css'
+import { storeCtx } from 'app/api'
 
 export default function Characters() {
-  const { characters } = useContext(navigationCtx)
+  const { characters } = useContext(storeCtx)
 
   return (
     <Paper className={styles.characters}>
