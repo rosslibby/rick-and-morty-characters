@@ -3,10 +3,10 @@ import { ENDPOINT } from '../../constants'
 import { NextApiRequest } from 'next'
 
 export async function GET(request: NextApiRequest) {
-  const { id } = request.query
+  const { id, page } = request.query
 
   try {
-    const response = await (await fetch(`${ENDPOINT}/character/${id}`)).json()
+    const response = await (await fetch(`${ENDPOINT}/character/${id}/?page=${page || 1}`)).json()
 
     return NextResponse.json(
       response.results,

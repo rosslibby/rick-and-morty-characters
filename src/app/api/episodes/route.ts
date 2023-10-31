@@ -3,7 +3,6 @@ import { ENDPOINT } from '../constants'
 
 export async function GET(request: NextRequest) {
   const page = request.nextUrl.searchParams.get('page')
-  console.log('page is', page)
 
   try {
     const response = await (await fetch(`${ENDPOINT}/episode?page=${page || 1}`)).json()
