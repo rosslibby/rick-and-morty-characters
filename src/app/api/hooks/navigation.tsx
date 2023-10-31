@@ -1,6 +1,8 @@
 import { useCallback, useContext } from 'react'
 import { Episode } from 'components/episodes/types'
 import { storeCtx } from 'app/api'
+import { useApi } from './api'
+import { getCharacterId } from 'utils'
 
 export const useNavigation = () => {
   const {
@@ -9,30 +11,24 @@ export const useNavigation = () => {
     _: {
       selectEpisode,
       setCharactersPage,
-      setLoading,
     }
   } = useContext(storeCtx)
+  const { loadCharacters, resetCharacters } = useApi()
 
   const toggleSelect = (id?: number) => {
     if (typeof id !== undefined && id !== episode?.id) {
       const episode = episodes.find((episode: Episode) => episode.id === id)
       selectEpisode(episode)
+      const characterIDs = episode?.characters.map((character: string) => getCharacterId(character))
+      loadCharacters(characterIDs, 1)
       setCharactersPage(0)
     } else {
       selectEpisode(null)
+      resetCharacters()
     }
   }
 
-  const loadEpisode = useCallback(async (id: number) => {
-    setLoading(true)
-
-    const episode = await (await fetch(`/api/episodes/${id}`)).json()
-
-    setLoading(false)
-  }, [setLoading])
-
   return {
     toggleSelect,
-    loadEpisode,
   }
 }

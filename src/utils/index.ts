@@ -1,1 +1,3 @@
-export const getCharacterId = (url: string) => url.match(/\d+/g)?.pop()
+export const getCharacterId = (url: string) => Number(
+  url.match(/\d+/g)?.pop()
+)

@@ -1,19 +1,12 @@
 import Paper from 'components/paper'
 import styles from './episodes.module.css'
-import { MouseEvent, useContext } from 'react'
+import { useContext } from 'react'
 import { Episode } from './types'
 import { storeCtx } from 'app/api'
+import Button from './button'
 
 export default function Episodes() {
-  const { episode, episodes, _: { selectEpisode } } = useContext(storeCtx)
-  const handleEpisodeClick = (e: MouseEvent<HTMLLIElement>) => {
-    const { value: selectedId } = e.target as HTMLLIElement
-    if (episode?.id === selectedId) {
-      selectEpisode(null)
-    } else {
-      selectEpisode()
-    }
-  }
+  const { episodes } = useContext(storeCtx)
 
   // I am displaying the list as an ordered list (ol)
   // so that the list items (li) can have "value" attributes
@@ -24,12 +17,11 @@ export default function Episodes() {
         <h2>Episodes</h2>
         <ol className={styles.episodes}>
           {episodes.map((episode: Episode) => (
-            <li
+            <Button
               key={`episode-${episode.id}`}
-              tabIndex={0}
-              className={styles.episode}
-              value={episode.id}
-            >{episode.name}</li>
+              id={episode.id}
+              name={episode.name}
+            />
           ))}
         </ol>
       </nav>

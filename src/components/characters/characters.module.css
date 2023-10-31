@@ -1,10 +1,13 @@
 .characters {
+  border-bottom: 1.25rem solid #ffffff;
+  border-top: 1.25rem solid #ffffff;
   display: grid;
   gap: 1.25rem;
   grid-auto-rows: max-content;
   grid-template-columns: repeat(5, 1fr);
   height: 100%;
   overflow: scroll;
+  padding: 0 1.25rem;
 }
 
 .avatar {

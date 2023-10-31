@@ -1,11 +1,11 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { ENDPOINT } from '../../constants'
-import { NextApiRequest } from 'next'
 import { getCharacterId } from 'utils'
 
-export async function GET(request: NextApiRequest) {
-  const { id } = request.query
-
+export async function GET(
+  request: NextRequest,
+  { params: { id } }: { params: { id: string } },
+) {
   try {
     const episode = await (await fetch(`${ENDPOINT}/episode/${id}`)).json()
     const characterIDs = episode.characters.map(

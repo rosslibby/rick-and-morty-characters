@@ -6,7 +6,9 @@ export async function GET(request: Request) {
     const response = await (await fetch(`${ENDPOINT}/character`)).json()
 
     return NextResponse.json(
-      response.results,
+      {
+        characters: response.results,
+      },
       {
         status: 200,
       },

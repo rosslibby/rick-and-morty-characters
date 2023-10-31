@@ -1,15 +1,24 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { ENDPOINT } from '../../constants'
-import { NextApiRequest } from 'next'
 
-export async function GET(request: NextApiRequest) {
-  const { id, page } = request.query
+export async function GET(
+  request: NextRequest,
+  { params: { id } }: { params: { id: string } },
+) {
+  const page = request.nextUrl.searchParams.get('page')
+  console.log('ID:', id, 'Page:', page)
 
   try {
-    const response = await (await fetch(`${ENDPOINT}/character/${id}/?page=${page || 1}`)).json()
+    const response = await (
+      await fetch(`${ENDPOINT}/character/${id}/?page=${page || 1}`)
+    ).json()
 
     return NextResponse.json(
-      response.results,
+      {
+        characters: Array.isArray(response)
+          ? response
+          : [response],
+      },
       {
         status: 200,
       },
