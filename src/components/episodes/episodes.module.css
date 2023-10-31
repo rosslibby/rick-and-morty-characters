@@ -1,5 +1,5 @@
 .sidebar {
-  color: #17202f;
+  color: #314567;
   width: 100%;
 }
 
@@ -38,8 +38,16 @@
   width: 100%;
   padding: 0.5rem;
   text-transform: uppercase;
+  transition: all .25s ease;
+}
+
+.episode:hover {
+  background-color: #2f6cd221;
+  color: #17202f;
+  cursor: pointer;
 }
 
 .episode:focus {
-  background-color: #1f2938;
+  background-color: #17202f;
+  color: #d3e4ff;
 }
