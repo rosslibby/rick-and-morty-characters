@@ -3,6 +3,7 @@ const nextConfig = {
   images: {
     domains: ['rickandmortyapi.com'],
   },
+  reactStrictMode: false,
 }
 
 module.exports = nextConfig

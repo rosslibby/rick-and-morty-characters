@@ -1,5 +1,10 @@
 .sidebar {
-  color: black;
+  color: #17202f;
+  width: 100%;
+}
+
+.sidebar nav {
+  width: 100%;
 }
 
 .sidebar h2 {
@@ -12,4 +17,29 @@
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.episodes {
+  display: grid;
+  gap: 0.125rem;
+  overflow: hidden;
+}
+
+.episode {
+  background-color: transparent;
+  border-radius: 0.25rem;
+  font-family: system-ui;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  overflow: hidden;
+  width: 100%;
+  padding: 0.5rem;
+  text-transform: uppercase;
+}
+
+.episode:focus {
+  background-color: #1f2938;
 }

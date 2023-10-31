@@ -2,7 +2,7 @@
   box-sizing: border-box;
   display: grid;
   gap: 1.25rem;
-  grid-template-columns: 5fr 23fr;
+  grid-template-columns: 7fr 22fr;
   height: 100vh;
   padding: 2.5rem;
   width: 100vw;

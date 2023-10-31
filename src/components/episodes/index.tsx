@@ -22,10 +22,12 @@ export default function Episodes() {
     <Paper className={styles.sidebar}>
       <nav>
         <h2>Episodes</h2>
-        <ol>
+        <ol className={styles.episodes}>
           {episodes.map((episode: Episode) => (
             <li
               key={`episode-${episode.id}`}
+              tabIndex={0}
+              className={styles.episode}
               value={episode.id}
             >{episode.name}</li>
           ))}
