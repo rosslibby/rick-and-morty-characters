@@ -11,7 +11,6 @@ export default function Home() {
   const {
     characters,
     episodes,
-    episodesPage,
     loading,
   } = useContext(storeCtx)
   const { loadCharacters, loadEpisodes } = useApi()
@@ -21,11 +20,6 @@ export default function Home() {
       loadEpisodes()
     }
   }, [characters, episodes, loading, loadCharacters, loadEpisodes])
-
-  // infinite scrolling to fetch episodes
-  // useEffect(() => {
-  //   loadEpisodes()
-  // }, [episodesPage])
 
   useEffect(() => {
     if (!characters.length && !episodes.length && !loading) {

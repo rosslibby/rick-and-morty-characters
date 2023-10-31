@@ -1,6 +1,6 @@
 import Paper from 'components/paper'
 import styles from './episodes.module.css'
-import { useCallback, useContext, useEffect, useRef, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { Episode } from './types'
 import { storeCtx } from 'app/api'
 import Button from './button'
@@ -9,8 +9,6 @@ import { RESULTS_LIMIT } from 'app/api/constants'
 
 export default function Episodes() {
   const [lastElement, setLastElement] = useState<HTMLLIElement | null>(null)
-  const containerRef = useRef<HTMLOListElement>(null)
-  const boundaryRef = useRef<HTMLLIElement>(null)
   const [loadNext, setLoadNext] = useState<boolean>(false)
   const [observer, setObserver] = useState<IntersectionObserver | null>(null)
   const {
@@ -23,17 +21,11 @@ export default function Episodes() {
   const TOTAL_PAGES = Math.ceil(episodesCount / RESULTS_LIMIT)
   const { loadEpisodes } = useApi()
   useEffect(() => {
-    if (typeof window === undefined) {
-      console.log('no window')
-      return
-    }
-    else {
-      console.log('we got window')
+    if (typeof window !== undefined) {
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
             setLoadNext(true)
-            // setEpisodesPage((page: number) => page + 1)
           }
         }
       )
@@ -43,7 +35,6 @@ export default function Episodes() {
   }, [setEpisodesPage, setObserver])
 
   const getNextEpisodes = useCallback(() => {
-    console.log(episodesPage, TOTAL_PAGES)
     if (episodesPage < TOTAL_PAGES && loadNext) {
       setLoadNext(false)
       loadEpisodes()
@@ -60,7 +51,6 @@ export default function Episodes() {
     const currentObserver = observer
 
     if (currentElement) {
-      console.log('observing', currentElement)
       currentObserver?.observe(currentElement)
     }
 
@@ -78,7 +68,7 @@ export default function Episodes() {
     <Paper className={styles.sidebar}>
       <nav>
         <h2>Episodes</h2>
-        <ol className={styles.episodes} ref={containerRef}>
+        <ol className={styles.episodes}>
           {episodes.map((episode: Episode) => (
             <Button
               key={`episode-${episode.id}`}
@@ -87,7 +77,6 @@ export default function Episodes() {
               cbRef={(ref: HTMLLIElement) => setLastElement(ref)}
             />
           ))}
-          <li className={styles.boundary} ref={boundaryRef} />
         </ol>
       </nav>
     </Paper>
