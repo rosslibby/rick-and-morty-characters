@@ -6,6 +6,8 @@ export interface Store {
   episodes: Episode[]
   episode: Episode | null
   loading: boolean
+  charactersPage: number
+  episodesPage: number
   _: {
     [key: string]: Function
   }
