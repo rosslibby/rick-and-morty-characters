@@ -6,60 +6,65 @@ import { storeCtx } from 'app/api'
 import Button from './button'
 import { useApi } from 'app/api/hooks/api'
 import { RESULTS_LIMIT } from 'app/api/constants'
+import { useInfiniteScroll } from 'components/infinite-scroll/hooks'
 
 export default function Episodes() {
-  const [lastElement, setLastElement] = useState<HTMLLIElement | null>(null)
-  const [loadNext, setLoadNext] = useState<boolean>(false)
-  const [observer, setObserver] = useState<IntersectionObserver | null>(null)
+  // const [lastElement, setLastElement] = useState<HTMLLIElement | null>(null)
+  // const [loadNext, setLoadNext] = useState<boolean>(false)
+  // const [observer, setObserver] = useState<IntersectionObserver | null>(null)
   const {
     episodes,
     episodesCount,
     episodesPage,
-    _: {
-      setEpisodesPage,
-    } } = useContext(storeCtx)
+  } = useContext(storeCtx)
   const TOTAL_PAGES = Math.ceil(episodesCount / RESULTS_LIMIT)
   const { loadEpisodes } = useApi()
-  useEffect(() => {
-    if (typeof window !== undefined) {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setLoadNext(true)
-          }
-        }
-      )
-
-      setObserver(observer)
-    }
-  }, [setEpisodesPage, setObserver])
-
-  const getNextEpisodes = useCallback(() => {
-    if (episodesPage < TOTAL_PAGES && loadNext) {
-      setLoadNext(false)
+  const getNextEpisodes = () => {
+    if (episodesPage < TOTAL_PAGES) {
       loadEpisodes()
     }
-  }, [episodesPage, loadEpisodes, loadNext, TOTAL_PAGES])
+  }
+  const { setLastElement } = useInfiniteScroll({
+    callback: getNextEpisodes,
+  })
+  // useEffect(() => {
+  //   if (typeof window !== undefined) {
+  //     const observer = new IntersectionObserver(
+  //       ([entry]) => {
+  //         if (entry.isIntersecting) {
+  //           setLoadNext(true)
+  //         }
+  //       }
+  //     )
 
-  useEffect(() => {
-    getNextEpisodes()
-  }, [getNextEpisodes, TOTAL_PAGES])
+  //     setObserver(observer)
+  //   }
+  // }, [])
 
-  useEffect(() => {
-    if (!observer) return
-    const currentElement = lastElement
-    const currentObserver = observer
+  // const _getNextEpisodes = useCallback(() => {
+  //   if (episodesPage < TOTAL_PAGES && loadNext) {
+  //     setLoadNext(false)
+  //     loadEpisodes()
+  //   }
+  // }, [episodesPage, loadEpisodes, loadNext, TOTAL_PAGES])
 
-    if (currentElement) {
-      currentObserver?.observe(currentElement)
-    }
+  // useEffect(() => {
+  //   getNextEpisodes()
+  // }, [getNextEpisodes, TOTAL_PAGES])
 
-    return () => {
-      if (currentElement) {
-        currentObserver?.unobserve(currentElement)
-      }
-    }
-  }, [lastElement, observer])
+  // useEffect(() => {
+  //   if (!observer) return
+
+  //   if (lastElement) {
+  //     observer?.observe(lastElement)
+  //   }
+
+  //   return () => {
+  //     if (lastElement) {
+  //       observer?.unobserve(lastElement)
+  //     }
+  //   }
+  // }, [lastElement, observer])
 
   // I am displaying the list as an ordered list (ol)
   // so that the list items (li) can have "value" attributes
