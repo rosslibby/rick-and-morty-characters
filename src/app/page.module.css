@@ -3,6 +3,7 @@
   display: grid;
   gap: 1.25rem;
   grid-template-columns: 7fr 22fr;
+  grid-template-rows: 100%;
   height: 100vh;
   padding: 2.5rem;
   width: 100vw;

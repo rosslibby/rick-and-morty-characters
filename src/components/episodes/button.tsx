@@ -1,9 +1,10 @@
-import { MouseEvent, useContext } from 'react'
+import { MouseEvent, RefCallback, RefObject, useContext } from 'react'
 import styles from './episodes.module.css'
 import { storeCtx } from 'app/api'
 import { useNavigation } from 'app/api/hooks/navigation'
 
-export default function Button({ id, name }: {
+export default function Button({ cbRef, id, name }: {
+  cbRef: RefObject<HTMLLIElement>
   id: number
   name: string
 }) {
@@ -17,6 +18,7 @@ export default function Button({ id, name }: {
     <li
       className={styles.episode}
       onClick={handleEpisodeClick}
+      ref={cbRef}
       tabIndex={0}
       value={id}
     >{name}</li>

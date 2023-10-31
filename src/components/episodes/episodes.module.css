@@ -4,6 +4,9 @@
 }
 
 .sidebar nav {
+  display: grid;
+  grid-template-rows: 2fr 28fr;
+  overflow: hidden;
   width: 100%;
 }
 
@@ -21,8 +24,9 @@
 
 .episodes {
   display: grid;
-  gap: 0.125rem;
-  overflow: hidden;
+  gap: 0.75rem;
+  height: 100%;
+  overflow: scroll;
 }
 
 .episode {
@@ -31,14 +35,15 @@
   font-family: system-ui;
   font-size: 0.875rem;
   font-weight: 700;
+  height: max-content;
   letter-spacing: 1px;
-  text-overflow: ellipsis;
-  text-wrap: nowrap;
   overflow: hidden;
-  width: 100%;
   padding: 0.5rem;
+  text-overflow: ellipsis;
   text-transform: uppercase;
+  text-wrap: nowrap;
   transition: all .25s ease;
+  width: 100%;
 }
 
 .episode:hover {
@@ -50,4 +55,9 @@
 .episode:focus {
   background-color: #17202f;
   color: #d3e4ff;
+}
+
+.boundary {
+  border-top: 1px solid red;
+  height: 0;
 }

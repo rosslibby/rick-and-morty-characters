@@ -11,6 +11,7 @@ export const useApi = () => {
     _: {
       setCharacters,
       setEpisodes,
+      setEpisodesCount,
       setLoading,
       setCharactersPage,
       setEpisodesPage,
@@ -19,16 +20,23 @@ export const useApi = () => {
   const loadEpisodes = useCallback(async () => {
     setLoading(true)
 
-    const result = await (
+    const { count, episodes: result } = await (
       await fetch(`/api/episodes/?page=${episodesPage + 1}`)
     ).json()
     
     setEpisodes((episodes: Episode[]) => [...episodes, ...result])
+    setEpisodesCount(count)
 
     setEpisodesPage((page: number) => page + 1)
 
     setLoading(false)
-  }, [episodesPage, setEpisodes, setEpisodesPage, setLoading])
+  }, [
+    episodesPage,
+    setEpisodes,
+    setEpisodesCount,
+    setEpisodesPage,
+    setLoading,
+  ])
 
   const resetCharacters = useCallback(async () => {
     setLoading(true)
@@ -69,7 +77,6 @@ export const useApi = () => {
       (characterId: number) => !existingCharacters.includes(characterId)
     )
 
-    console.log('New characters to fetch', newCharacters)
     const queryPage = page || charactersPage + 1
     const endpoint = newCharacters.length
       ? `/api/characters/${newCharacters?.join(',')}`

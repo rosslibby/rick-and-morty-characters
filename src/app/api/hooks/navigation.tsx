@@ -1,4 +1,4 @@
-import { useCallback, useContext } from 'react'
+import { useContext } from 'react'
 import { Episode } from 'components/episodes/types'
 import { storeCtx } from 'app/api'
 import { useApi } from './api'

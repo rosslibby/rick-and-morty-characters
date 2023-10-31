@@ -8,7 +8,10 @@ export async function GET(request: NextRequest) {
     const response = await (await fetch(`${ENDPOINT}/episode?page=${page || 1}`)).json()
 
     return NextResponse.json(
-      response.results,
+      {
+        episodes: response.results,
+        count: response.info.count,
+      },
       {
         status: 200,
       },

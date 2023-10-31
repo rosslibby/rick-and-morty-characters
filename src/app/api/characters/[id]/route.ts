@@ -6,7 +6,6 @@ export async function GET(
   { params: { id } }: { params: { id: string } },
 ) {
   const page = request.nextUrl.searchParams.get('page')
-  console.log('ID:', id, 'Page:', page)
 
   try {
     const response = await (

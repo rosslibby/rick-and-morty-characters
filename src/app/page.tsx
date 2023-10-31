@@ -8,7 +8,12 @@ import { storeCtx } from './api'
 import { useApi } from './api/hooks/api'
 
 export default function Home() {
-  const { characters, episodes, loading } = useContext(storeCtx)
+  const {
+    characters,
+    episodes,
+    episodesPage,
+    loading,
+  } = useContext(storeCtx)
   const { loadCharacters, loadEpisodes } = useApi()
   const init = useCallback(() => {
     if (!characters.length && !episodes.length && !loading) {
@@ -16,6 +21,11 @@ export default function Home() {
       loadEpisodes()
     }
   }, [characters, episodes, loading, loadCharacters, loadEpisodes])
+
+  // infinite scrolling to fetch episodes
+  // useEffect(() => {
+  //   loadEpisodes()
+  // }, [episodesPage])
 
   useEffect(() => {
     if (!characters.length && !episodes.length && !loading) {

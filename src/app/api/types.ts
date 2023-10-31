@@ -3,6 +3,7 @@ import { Episode } from 'components/episodes/types'
 
 export interface Store {
   characters: Character[]
+  episodesCount: number
   episodes: Episode[]
   episode: Episode | null
   loading: boolean

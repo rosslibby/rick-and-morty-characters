@@ -7,6 +7,7 @@ import { Character } from 'components/characters/types'
 
 export const storeCtx = createContext<Store>({
   characters: [],
+  episodesCount: 0,
   episodes: [],
   episode: null,
   loading: false,
@@ -19,6 +20,7 @@ export default function Api({ children }: {
   children: ReactNode
 }) {
   const [loading, setLoading] = useState<boolean>(false)
+  const [episodesCount, setEpisodesCount] = useState<number>(0)
   const [episodesPage, setEpisodesPage] = useState<number>(0)
   const [charactersPage, setCharactersPage] = useState<number>(0)
   const [episodes, setEpisodes] = useState<Episode[]>([])
@@ -28,6 +30,7 @@ export default function Api({ children }: {
   return (
     <storeCtx.Provider value={{
       characters,
+      episodesCount,
       episodes,
       episode,
       loading,
@@ -37,6 +40,7 @@ export default function Api({ children }: {
         selectEpisode: setEpisode,
         setCharacters,
         setEpisodes,
+        setEpisodesCount,
         setLoading,
         setCharactersPage,
         setEpisodesPage,

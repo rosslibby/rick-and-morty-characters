@@ -1,6 +1,6 @@
 import Paper from 'components/paper'
 import Image from 'next/image'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { Character } from './types'
 import styles from './characters.module.css'
 import { storeCtx } from 'app/api'
@@ -10,7 +10,7 @@ export default function Characters() {
 
   return (
     <Paper className={styles.characters}>
-      {characters.map((character: Character) => (
+      {/* {characters.map((character: Character) => (
         <Image
           key={`character-${character.id}`}
           className={styles.avatar}
@@ -19,7 +19,7 @@ export default function Characters() {
           height={160}
           width={160}
         />
-      ))}
+      ))} */}
     </Paper>
   )
 }
