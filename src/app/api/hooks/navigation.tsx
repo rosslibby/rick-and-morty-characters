@@ -22,6 +22,7 @@ export const useNavigation = () => {
       const characterIDs = episode?.characters.map((character: string) => getCharacterId(character))
       loadCharacters(characterIDs)
       setCharactersPage(0)
+      document.title = `${episode?.name} (E${episode?.id}) | Rick and Morty Characters`
     } else {
       selectEpisode(null)
       resetCharacters()

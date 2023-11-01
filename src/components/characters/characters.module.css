@@ -3,11 +3,32 @@
   border-top: 1.25rem solid #ffffff;
   display: grid;
   gap: 1.25rem;
-  grid-auto-rows: max-content;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1fr 29fr;
   height: 100%;
   overflow: scroll;
   padding: 0 1.25rem;
+}
+
+.characters__header {
+  align-items: center;
+  background-color: #ffffff;
+  display: flex;
+  position: sticky;
+  top: 0;
+}
+
+.characters__header h3 {
+  color: #314567;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -.25px;
+}
+
+.characters__area {
+  display: grid;
+  gap: 1.25rem;
+  grid-auto-rows: max-content;
+  grid-template-columns: repeat(5, 1fr);
 }
 
 .avatar {
