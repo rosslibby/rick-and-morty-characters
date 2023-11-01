@@ -1,14 +1,16 @@
-import { LegacyRef, MouseEvent, memo } from 'react'
+import { LegacyRef, MouseEvent } from 'react'
 import styles from './episodes.module.css'
 import { useNavigation } from 'app/api/hooks/navigation'
 
-function Button({ cbRef, handleClick, id, name, selected }: {
+type Props = {
   cbRef: LegacyRef<HTMLLIElement>
   handleClick: Function
   id: number
   name: string
   selected: boolean
-}) {
+}
+
+export default function Button({ cbRef, handleClick, id, name, selected }: Props) {
   const className = selected
     ? `${styles.episode} ${styles['episode--active']}`
     : styles.episode
@@ -32,5 +34,3 @@ function Button({ cbRef, handleClick, id, name, selected }: {
     >{name}</li>
   )
 }
-
-export default memo(Button)

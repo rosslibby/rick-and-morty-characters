@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
 
-export const useInfiniteScroll = ({
-  callback,
-}: {
+type Props = {
   callback: Function
-}) => {
+}
+
+export const useInfiniteScroll = ({ callback }: Props) => {
   const [lastElement, setLastElement] = useState<HTMLElement | null>(null)
   const [loadNext, setLoadNext] = useState<boolean>(false)
   const [observer, setObserver] = useState<IntersectionObserver | null>(null)

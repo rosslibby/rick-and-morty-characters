@@ -9,11 +9,11 @@ export const metadata: Metadata = {
   title: 'Rick and Morty Characters',
 }
 
-export default function RootLayout({
-  children,
-}: {
+type Props = {
   children: React.ReactNode
-}) {
+}
+
+export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
       <body className={inter.className}>

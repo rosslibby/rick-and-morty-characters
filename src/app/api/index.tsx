@@ -18,9 +18,11 @@ export const storeCtx = createContext<Store>({
   _: {},
 })
 
-export default function Api({ children }: {
+type Props = {
   children: ReactNode
-}) {
+}
+
+export default function Api({ children }: Props) {
   const [charactersLoading, setCharactersLoading] = useState<boolean>(false)
   const [episodesLoading, setEpisodesLoading] = useState<boolean>(false)
   const [episodesCount, setEpisodesCount] = useState<number>(0)
