@@ -2,6 +2,8 @@
 
 This is an application built on the [Rick and Morty API](https://rickandmortyapi.com/). Check out the cast by browsing through each episode.
 
+### Preview the application [here](https://rick-and-morty-characters-ll4g4w2pc-rosslibby.vercel.app/)
+
 ## Overview
 
 - I built this application using __NextJS__ and __TypeScript__
